@@ -18,16 +18,18 @@
 <script type="text/babel">
     const root = document.getElementById("root");
     function App() {
-        const [counter, setCounter] = React.useState(0);
-        const onclick = () => {
-            setCounter(counter + 1);
-            console.log("rendered");
-            console.log(counter + 1)
-        };
+        const [minutes, setMinutes] = React.useState();
+        const onChange = (event) => {
+            setMinutes(event.target.value);
+        }
         return (
             <div>
-                <h3>Total Clicks : {counter}</h3>
-                <button onClick={onclick} >Click me</button>
+                <h1>Super Conveter</h1>
+                <label for="minutes">Minutes</label>
+                <input value={minutes} id="minutes" placeholder="Minutes" type="number" onChange={onChange} />
+                <h4>You want to convert {minutes}</h4>
+                <label for="hours">Hours</label>
+                <input id="hours" placeholder="Hours" type="number" />
             </div>
         );
     }
