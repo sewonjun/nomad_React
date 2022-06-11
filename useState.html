@@ -11,22 +11,24 @@
 <body>
     <div id="root"></div>
 </body>
-<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js
+<script src="https://unpkg.com/react@17.0.2/umd/react.development.js
 "></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
-    function Btn({ text, big }) {
-        console.log(text, big);
+    function Btn({ text, onClick }) {
+        console.log(text, "was rendered")
+        // App의 state가 변동하면 전체가 re-render되기 때문에 Revert Changes, continue 순으로 re-render되는 것을 볼 수 있다. 
         return (
             <button
+                onClick={onClick}
                 style={{
                     backgroundColor: "tomato",
                     color: "white",
                     padding: "10px, 20px",
                     border: 0,
                     borderRadius: 10,
-                    fontSize: big ? 18 : 16
+                    fontSize: "16px"
                 }}
             >
                 {text}
@@ -34,10 +36,13 @@
         );
     }
     function App() {
+        const [value, setValue] = React.useState("Save Changges");
+        const changeValue = () => setValue("Revert Changes");
         return (
             <div>
-                <Btn text="Saved Changes" big={true} />
-                <Btn text="continue" big={false} />
+                <Btn text={value} onClick={changeValue} />
+                {/* 여기안에 prop을 넣어도 그냥 Btn 안에 있는 return으로 자연스럽게 들어가는게 아니라 return 안에 들어갈 수 있게 parameter로 받을 수 있게 해줘야함  */}
+                <Btn text="continue" />
             </div>
         );
     }
